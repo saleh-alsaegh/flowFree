@@ -33,8 +33,35 @@ This project helps sharpen problem-solving skills and demonstrates how to build 
 
 ### 🚀 **Getting Started**
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/saleh-alsaegh/flow-puzzle-game.git
-   cd flow-puzzle-game
-   ```
+This section outlines how the Flow Puzzle Game project was initiated and the key decisions made early on:
+
+1. **Conceptualization & Wireframing**
+
+   - Sketched the layout and game interface using hand-drawn wireframes.
+   - Defined core gameplay mechanics (connecting color-matched dots without overlapping paths).
+
+2. **Setting Up the Project**
+
+   - Created basic file structure: `index.html`, `styles.css`, and `script.js`.
+   - Set up a 2D grid using HTML and styled it with CSS Grid for visual clarity.
+
+3. **Game Logic Design**
+
+   - Planned the logic to:
+     - Handle user input (clicks on cells).
+     - Track and validate the current path.
+     - Ensure paths do not overlap.
+     - Check for level completion.
+
+4. **Initial Coding**
+
+   - Coded dynamic grid generation using JavaScript.
+   - Handled basic user interaction: selecting a dot, drawing paths, and completing connections.
+
+5. **Interface Enhancements**
+   - Added color-coded paths, animations, and feedback when a level is completed.
+   - Implemented control buttons: **UNDO**, **RESET**, and **NEXT LEVEL**.
+
+These early stages built the foundation of a playable and visually interactive puzzle game.
+
+---
