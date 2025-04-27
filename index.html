@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flow Puzzle Game</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="header">
+    <button id="themeToggle">🌙 Dark Mode</button>
+  </div>
+  
+  <div id="levelSelection" class="screen">
+    <h1>Flow Puzzle Game</h1>
+    <h2>Select Level</h2>
+    <div id="levelButtons"></div>
+  </div>
+
+  <div id="gameScreen" class="screen" style="display: none;">
+    <h1>Flow Captive</h1>
+    <div id="gameBoard"></div>
+    <div id="controls">
+      <button id="restartButton">Restart</button>
+      <button id="undoButton">Undo</button>
+      <button id="nextLevelButton">Next Level</button>
+      <button id="backButton">Back to Levels</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
