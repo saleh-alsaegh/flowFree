@@ -2,10 +2,10 @@
     --bg-color: #000000;
     --text-color: white;
     --cell-bg: #000000;
-    --board-bg: rgb(42, 45, 90);
-    --border-color: rgb(42, 45, 90);
+    --board-bg: rgb(42, 72, 90);
+    --border-color: rgb(42, 72, 90);
     --button-bg: #000000;
-    --button-hover: #4ba0a3;
+    --button-hover: rgb(42, 72, 90);
     --completed-level: #4CAF50;
   }
   
@@ -16,12 +16,10 @@
     --board-bg: #ffffff;
     --border-color:#ffffff;
     --button-bg: #dbdbdb;
-    --button-hover: #3f49a5;
+    --button-hover: #e08938;
     --completed-level: #81C784;
-    
   }
 
-  
   body {
       display: flex;
       flex-direction: column;
@@ -40,10 +38,7 @@
       position: absolute;
       top: 20px;
       right: 20px;
-     
-
   }
-  
   
   #themeToggle {
       padding: 8px 16px;
@@ -59,10 +54,8 @@
       background: var(--button-hover);
   }
   
-  /* Rest of your existing CSS with updated color variables */
   h1 {
       margin-bottom: 20px;
-      
   }
   
   .screen {
@@ -73,20 +66,17 @@
   
   #gameBoard {
       display: grid;
-      grid-template-columns: repeat(5, 60px);
-      grid-template-rows: repeat(5, 60px);
+      grid-template-columns: repeat(7, 50px); /* Changed to 7 columns */
+      grid-template-rows: repeat(7, 50px); /* Changed to 7 rows */
       gap: 2px;
       background: var(--board-bg);
       border: 2px solid var(--border-color);
       margin-bottom: 20px;
   }
-  #gamescreen.h1 {
-      margin: 0;
-      font-size: 24px;
-  }
+  
   .cell {
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
       background: var(--cell-bg);
       display: flex;
       align-items: center;
@@ -134,8 +124,7 @@
   }
   #undoButton:hover {
       background: #521f4b;
-    }
-      
+  }
   
   #nextLevelButton {
     min-width: 80px;
@@ -150,7 +139,6 @@
   }
   #backButton:hover {
       background: #5e5f1a;
-    
   }
   
   #levelButtons {
