@@ -1,4 +1,3 @@
-// Game Configuration
 const boardSize = 7;
 const gameBoard = document.getElementById('gameBoard');
 const levelSelection = document.getElementById('levelSelection');
@@ -11,12 +10,10 @@ const levelDisplay = document.getElementById('levelDisplay');
 const undoCountDisplay = document.getElementById('undoCount');
 const restartButton = document.getElementById('restartButton');
 const undoButton = document.getElementById('undoButton');
-const hintButton = document.getElementById('hintButton');
 const nextLevelButton = document.getElementById('nextLevelButton');
 const backButton = document.getElementById('backButton');
 const themeToggle = document.getElementById('themeToggle');
 
-// Color Definitions
 const colors = {
   red: "#FF5252",
   blue: "#4285F4",
@@ -30,46 +27,81 @@ const colors = {
   teal: "#009688"
 };
 
-// Game Levels
 const levels = [
-  { // Level 1
+  {
     dots: [
-      { x: 0, y: 0, color: 'red' },
-      { x: 6, y: 1, color: 'red' },
+      { x: 0, y: 1, color: 'blue' },
       { x: 1, y: 2, color: 'blue' },
-      { x: 5, y: 2, color: 'blue' },
-      { x: 0, y: 3, color: 'green' },
-      { x: 6, y: 3, color: 'green' }
+      { x: 1, y: 1, color: 'yellow' },
+      { x: 2, y: 3, color: 'yellow' },
+      { x: 0, y: 2, color: 'orange' },
+      { x: 3, y: 5, color: 'orange' },
+      { x: 6, y: 1, color: 'green' },
+      { x: 5, y: 5, color: 'green' },
+      { x: 5, y: 1, color: 'cyan' },
+      { x: 5, y: 4, color: 'cyan' },
+      { x: 6, y: 2, color: 'red' },
+      { x: 0, y: 6, color: 'red' }
+      
     ],
     isBoss: false
   },
-  { // Level 2
+  {
     dots: [
-      { x: 1, y: 1, color: 'red' },
-      { x: 5, y: 5, color: 'red' },
-      { x: 0, y: 6, color: 'blue' },
-      { x: 6, y: 0, color: 'blue' },
-      { x: 2, y: 2, color: 'green' },
-      { x: 4, y: 4, color: 'green' }
-    ],
-    isBoss: false
-  },
-  { // Level 3 (Boss Level)
-    dots: [
-      { x: 0, y: 0, color: 'red' },
-      { x: 6, y: 6, color: 'red' },
-      { x: 1, y: 1, color: 'blue' },
+      { x: 6, y: 1, color: 'blue' },
       { x: 5, y: 5, color: 'blue' },
-      { x: 2, y: 2, color: 'green' },
-      { x: 4, y: 4, color: 'green' },
-      { x: 3, y: 0, color: 'yellow' },
-      { x: 3, y: 6, color: 'yellow' }
+      { x: 1, y: 5, color: 'yellow' },
+      { x: 4, y: 6, color: 'yellow' },
+      { x: 2, y: 1, color: 'orange' },
+      { x: 0, y: 1, color: 'orange' },
+      { x: 6, y: 2, color: 'green' },
+      { x: 1, y: 4, color: 'green' },
+      { x: 0, y: 0, color: 'cyan' },
+      { x: 3, y: 1, color: 'cyan' },
+      { x: 6, y: 0, color: 'red' },
+      { x: 4, y: 1, color: 'red' }
     ],
-    isBoss: true
+    isBoss: false
+  },
+
+  {
+    dots: [
+      { x: 0, y: 0, color: 'blue' },
+      { x: 2, y: 3, color: 'blue' },
+      { x: 0, y: 1, color: 'yellow' },
+      { x: 0, y: 3, color: 'yellow' },
+      { x: 4, y: 0, color: 'orange' },
+      { x: 6, y: 6, color: 'orange' },
+      { x: 3, y: 0, color: 'green' },
+      { x: 3, y: 3, color: 'green' },
+      { x: 2, y: 0, color: 'cyan' },
+      { x: 3, y: 2, color: 'cyan' },
+      { x: 6, y: 0, color: 'red' },
+      { x: 1, y: 5, color: 'red' }
+    ],
+    isBoss: false
+  },
+  
+  {
+    dots: [
+      { x: 1, y: 4, color: 'blue' },
+      { x: 2, y: 6, color: 'blue' },
+      { x: 0, y: 1, color: 'yellow' },
+      { x: 0, y: 3, color: 'yellow' },
+      { x: 4, y: 0, color: 'orange' },
+      { x: 6, y: 6, color: 'orange' },
+      { x: 3, y: 0, color: 'green' },
+      { x: 3, y: 3, color: 'green' },
+      { x: 2, y: 0, color: 'cyan' },
+      { x: 3, y: 2, color: 'cyan' },
+      { x: 6, y: 0, color: 'red' },
+      { x: 1, y: 5, color: 'red' }
+    ],
+    isBoss: false
   }
+  
 ];
 
-// Game State
 let currentLevel = 0;
 let currentPath = [];
 let isDrawing = false;
@@ -80,17 +112,23 @@ const gameState = {
   moves: 0,
   time: 0,
   score: 0,
-  undosRemaining: 3,
+  undosRemaining: 14,
   timerInterval: null,
   completedLevels: JSON.parse(localStorage.getItem('completedLevels')) || {},
   bestScores: JSON.parse(localStorage.getItem('bestScores')) || {}
 };
 
-// Theme Management
 const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-let currentTheme = localStorage.getItem('theme') || (prefersDarkScheme.matches ? 'dark' : 'light');
+let currentTheme = localStorage.getItem('theme');
+if (!currentTheme) {
+  if (prefersDarkScheme.matches) {
+    currentTheme = 'dark';
+  } else {
+    currentTheme = 'light';
+  }
+}
 
-function applyTheme() {
+const applyTheme = () => {
   if (currentTheme === 'dark') {
     document.body.classList.remove('light-theme');
     themeToggle.textContent = '☀️ Light Mode';
@@ -99,26 +137,27 @@ function applyTheme() {
     themeToggle.textContent = '🌙 Dark Mode';
   }
   localStorage.setItem('theme', currentTheme);
-}
+};
 
 themeToggle.addEventListener('click', () => {
-  currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  if (currentTheme === 'dark') {
+    currentTheme = 'light';
+  } else {
+    currentTheme = 'dark';
+  }
   applyTheme();
 });
 
 applyTheme();
 
-// Initialize Level Selection
-function initLevelSelection() {
+const initLevelSelection = () => {
   levelButtons.innerHTML = '';
   levels.forEach((level, index) => {
     const button = document.createElement('button');
     button.textContent = `Level ${index + 1}`;
-    
     if (level.isBoss) {
       button.classList.add('boss-level');
     }
-    
     if (gameState.completedLevels[index]) {
       const starsDiv = document.createElement('div');
       starsDiv.className = 'stars';
@@ -129,44 +168,43 @@ function initLevelSelection() {
       `;
       button.appendChild(starsDiv);
     }
-    
     button.addEventListener('click', () => {
       currentLevel = index;
       startGame();
     });
     levelButtons.appendChild(button);
   });
-}
+};
 
-// Game Initialization
-function startGame() {
+const startGame = () => {
   resetGameState();
   levelSelection.style.display = 'none';
   gameScreen.style.display = 'flex';
-  levelDisplay.textContent = `Level ${currentLevel + 1}${levels[currentLevel].isBoss ? ' (Boss)' : ''}`;
+  levelDisplay.textContent = `Level ${currentLevel + 1}`;
+  if (levels[currentLevel].isBoss) {
+    levelDisplay.textContent += ' (Boss)';
+  }
   initGameBoard();
   loadLevel(currentLevel);
-  
   gameState.timerInterval = setInterval(() => {
     gameState.time++;
     updateTimerDisplay();
   }, 1000);
-}
+};
 
-function resetGameState() {
+const resetGameState = () => {
   gameState.moves = 0;
   gameState.time = 0;
-  gameState.undosRemaining = 3;
+  gameState.undosRemaining = 14;
   updateMovesDisplay();
   updateTimerDisplay();
   updateUndoDisplay();
   updateScoreDisplay();
-}
+};
 
-function initGameBoard() {
+const initGameBoard = () => {
   gameBoard.innerHTML = '';
   grid = [];
-  
   for (let y = 0; y < boardSize; y++) {
     grid[y] = [];
     for (let x = 0; x < boardSize; x++) {
@@ -178,14 +216,12 @@ function initGameBoard() {
       grid[y][x] = { cell, color: null };
     }
   }
-
   gameBoard.addEventListener('mousedown', handleMouseDown);
   gameBoard.addEventListener('mouseup', handleMouseUp);
   gameBoard.addEventListener('mousemove', handleMouseMove);
-}
+};
 
-// Game Functions
-function loadLevel(levelIndex) {
+const loadLevel = (levelIndex) => {
   resetGrid();
   levels[levelIndex].dots.forEach(dot => {
     const { x, y, color } = dot;
@@ -195,32 +231,29 @@ function loadLevel(levelIndex) {
     grid[y][x].cell.appendChild(dotDiv);
     grid[y][x].color = color;
   });
-}
+};
 
-function resetGrid() {
+const resetGrid = () => {
   for (let y = 0; y < boardSize; y++) {
     for (let x = 0; x < boardSize; x++) {
       const cellData = grid[y][x];
       if (cellData) {
         cellData.color = null;
         cellData.cell.innerHTML = '';
-        cellData.cell.classList.remove('path', 'hint');
+        cellData.cell.classList.remove('path');
         cellData.cell.style.backgroundColor = '';
       }
     }
   }
   currentPath = [];
-}
+};
 
-// Input Handling
-function handleMouseDown(e) {
+const handleMouseDown = (e) => {
   const cell = e.target.closest('.cell');
   if (!cell) return;
-
   const x = parseInt(cell.dataset.x);
   const y = parseInt(cell.dataset.y);
   const clickedColor = grid[y][x].color;
-  
   if (clickedColor) {
     isDrawing = true;
     currentColor = clickedColor;
@@ -228,33 +261,28 @@ function handleMouseDown(e) {
     gameState.moves++;
     updateMovesDisplay();
   }
-}
+};
 
-function handleMouseUp() {
+const handleMouseUp = () => {
   if (!isDrawing) return;
   isDrawing = false;
   currentColor = null;
   checkWin();
-}
+};
 
-function handleMouseMove(e) {
+const handleMouseMove = (e) => {
   if (!isDrawing) return;
-
   const cell = e.target.closest('.cell');
   if (!cell) return;
-
   const x = parseInt(cell.dataset.x);
   const y = parseInt(cell.dataset.y);
   const cellData = grid[y][x];
-
   if (currentPath.length > 0) {
     const lastCell = currentPath[currentPath.length - 1];
     if (lastCell.x === x && lastCell.y === y) return;
-
     const dx = Math.abs(x - lastCell.x);
     const dy = Math.abs(y - lastCell.y);
     if (dx + dy !== 1) return;
-
     if (currentPath.length > 1) {
       const prevCell = currentPath[currentPath.length - 2];
       if (prevCell.x === x && prevCell.y === y) {
@@ -266,9 +294,7 @@ function handleMouseMove(e) {
       }
     }
   }
-
   if (cellData.color && cellData.color !== currentColor) return;
-
   if (!cellData.color || cellData.color === currentColor) {
     cellData.cell.classList.add('path');
     cellData.cell.style.backgroundColor = colors[currentColor];
@@ -277,10 +303,9 @@ function handleMouseMove(e) {
     gameState.moves++;
     updateMovesDisplay();
   }
-}
+};
 
-// Game Logic
-function checkWin() {
+const checkWin = () => {
   for (let y = 0; y < boardSize; y++) {
     for (let x = 0; x < boardSize; x++) {
       if (!grid[y][x].color) {
@@ -288,33 +313,27 @@ function checkWin() {
       }
     }
   }
-  
   clearInterval(gameState.timerInterval);
   const stars = calculateScore();
   celebrateWin(stars);
   return true;
-}
+};
 
-function calculateScore() {
-  let score = 1000;
+const calculateScore = () => {
+  let score = 1;
   const timeBonus = Math.max(0, 500 - Math.floor(gameState.time / 2));
-  const moveBonus = Math.max(0, 500 - (gameState.moves * 5));
+  const moveBonus = Math.max(0, 50 - (gameState.moves * 5));
   score += timeBonus + moveBonus;
-  
   if (levels[currentLevel].isBoss) {
     score *= 1.5;
   }
-  
   gameState.score += Math.floor(score);
   updateScoreDisplay();
-  
   const stars = Math.min(3, 1 + Math.floor(score / 500));
-  
   if (!gameState.completedLevels[currentLevel] || stars > gameState.completedLevels[currentLevel]) {
     gameState.completedLevels[currentLevel] = stars;
     localStorage.setItem('completedLevels', JSON.stringify(gameState.completedLevels));
   }
-  
   if (!gameState.bestScores[currentLevel] || score > gameState.bestScores[currentLevel].score) {
     gameState.bestScores[currentLevel] = {
       score: Math.floor(score),
@@ -323,46 +342,50 @@ function calculateScore() {
     };
     localStorage.setItem('bestScores', JSON.stringify(gameState.bestScores));
   }
-  
   return stars;
-}
+};
 
-function celebrateWin(stars) {
+const celebrateWin = (stars) => {
   confetti({
     particleCount: 150,
     spread: 70,
     origin: { y: 0.6 }
   });
+setTimeout(() => {
+  const winScreen = document.createElement('div');
+  winScreen.id = 'winScreen';
+  winScreen.style.display = 'none';
+  winScreen.innerHTML = `
+    <h1>🎉 You completed the level! 🎉</h1>
+    <button onclick="nextLevel()">Next Level</button>
+    <button onclick="backToLevels()">Back to Levels</button>
+  `;
+  document.body.appendChild(winScreen);
+}, 500);
+};
 
-  setTimeout(() => {
-    alert(`🎉 Level Complete! 🎉\n\nStars: ${'★'.repeat(stars)}${'☆'.repeat(3-stars)}\nTime: ${formatTime(gameState.time)}\nMoves: ${gameState.moves}\nScore: +${Math.floor(gameState.score)}`);
-  }, 500);
-}
-
-function formatTime(seconds) {
+const formatTime = (seconds) => {
   const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
   const secs = (seconds % 60).toString().padStart(2, '0');
   return `${mins}:${secs}`;
-}
+};
 
-// UI Updates
-function updateTimerDisplay() {
+const updateTimerDisplay = () => {
   timerDisplay.textContent = formatTime(gameState.time);
-}
+};
 
-function updateMovesDisplay() {
+const updateMovesDisplay = () => {
   movesDisplay.textContent = `Moves: ${gameState.moves}`;
-}
+};
 
-function updateUndoDisplay() {
+const updateUndoDisplay = () => {
   undoCountDisplay.textContent = gameState.undosRemaining;
-}
+};
 
-function updateScoreDisplay() {
+const updateScoreDisplay = () => {
   scoreDisplay.textContent = `Score: ${gameState.score}`;
-}
+};
 
-// Button Handlers
 undoButton.addEventListener('click', () => {
   if (currentPath.length > 0 && gameState.undosRemaining > 0) {
     const lastCell = currentPath.pop();
@@ -380,43 +403,26 @@ restartButton.addEventListener('click', () => {
   resetGameState();
 });
 
-hintButton.addEventListener('click', () => {
-  const emptyCells = [];
-  for (let y = 0; y < boardSize; y++) {
-    for (let x = 0; x < boardSize; x++) {
-      if (!grid[y][x].color) {
-        emptyCells.push({x, y});
-      }
-    }
-  }
-  
-  if (emptyCells.length > 0) {
-    const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-    grid[randomCell.y][randomCell.x].cell.classList.add('hint');
-    setTimeout(() => {
-      grid[randomCell.y][randomCell.x].cell.classList.remove('hint');
-    }, 1000);
-  }
-});
-
 nextLevelButton.addEventListener('click', () => {
   if (currentLevel < levels.length - 1) {
     currentLevel++;
     startGame();
   } else {
+    const winSound = new Audio('win.mp3');
+    winSound.play();
+
     alert('🏆 You finished all levels!');
     backToLevelSelection();
   }
 });
 
-backButton.addEventListener('click', backToLevelSelection);
-
-function backToLevelSelection() {
+const backToLevelSelection = () => {
   clearInterval(gameState.timerInterval);
   gameScreen.style.display = 'none';
   levelSelection.style.display = 'flex';
   initLevelSelection();
-}
+};
 
-// Initialize Game
+backButton.addEventListener('click', backToLevelSelection);
+
 initLevelSelection();
