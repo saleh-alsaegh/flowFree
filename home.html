@@ -1,11 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flow Puzzle Game</title>
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+  <div class="header">
+    <div class="stats">
+      <div id="timer">00:00</div>
+      <div id="moves">Moves: 0</div>
+      <div id="score">Score: 0</div>
+    </div>
+    <button id="themeToggle">🌙 Dark Mode</button>
+  </div>
+
+  <div id="levelSelection" class="screen">
+    <h1>Flow Puzzle Game</h1>
+    <h2>Select Level</h2>
+    <div id="levelButtons"></div>
+  </div>
+
+  <div id="gameScreen" class="screen" style="display: none;">
+    <h1>Flow Captive <span id="levelDisplay">Level 1</span></h1>
+    <div id="gameBoard"></div>
+    <div id="controls">
+      <button id="restartButton">Restart</button>
+      <button id="undoButton">Undo (<span id="undoCount">3</span>)</button>
+      <button id="nextLevelButton">Next Level</button>
+      <button id="backButton">Back to Levels</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
