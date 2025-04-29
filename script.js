@@ -336,7 +336,7 @@ const checkWin = () => {
 
 const calculateScore = () => {
   let score = 1;
-  const timeBonus = Math.max(0, 500 - Math.floor(gameState.time / 2));
+  const timeBonus = Math.max(0, 50 - Math.floor(gameState.time / 2));
   const moveBonus = Math.max(0, 50 - (gameState.moves * 5));
   score += timeBonus + moveBonus;
   if (levels[currentLevel].isBoss) {
