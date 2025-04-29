@@ -113,6 +113,25 @@ const levels = [
       { x: 3, y: 2, color: 'red' }
     ],
     isBoss: false
+  },
+  {
+    dots: [
+      { x: 6, y: 0, color: 'blue' },
+      { x: 0, y: 6, color: 'blue' },
+      { x: 0, y: 1, color: 'yellow' },
+      { x: 4, y: 0, color: 'yellow' },
+      { x: 6, y: 1, color: 'orange' },
+      { x: 6, y: 6, color: 'orange' },
+      { x: 4, y: 2, color: 'green' },
+      { x: 1, y: 5, color: 'green' },
+      { x: 4, y: 1, color: 'red' },
+      { x: 0, y: 3, color: 'red' },
+      { x: 2, y: 2, color: 'purple' },
+      { x: 0, y: 5, color: 'purple' },
+      { x: 5, y: 4, color: 'cyan' },
+      { x: 4, y: 6, color: 'cyan' }
+    ],
+    isBoss: false
   }
   
 ];
@@ -335,9 +354,9 @@ const checkWin = () => {
 };
 
 const calculateScore = () => {
-  let score = 1;
-  const timeBonus = Math.max(0, 50 - Math.floor(gameState.time / 2));
-  const moveBonus = Math.max(0, 50 - (gameState.moves * 5));
+  let score = 10;
+  const timeBonus = Math.max(0, 500 - Math.floor(gameState.time / 2));
+  const moveBonus = Math.max(0, 500 - (gameState.moves * 5));
   score += timeBonus + moveBonus;
   if (levels[currentLevel].isBoss) {
     score *= 1.5;
