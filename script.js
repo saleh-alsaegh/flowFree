@@ -132,6 +132,22 @@ const levels = [
       { x: 4, y: 6, color: 'cyan' }
     ],
     isBoss: false
+  },
+  {
+    dots: [
+      { x: 1, y: 4, color: 'blue' },
+      { x: 4, y: 4, color: 'blue' },
+      { x: 0, y: 1, color: 'yellow' },
+      { x: 1, y: 5, color: 'yellow' },
+      { x: 3, y: 2, color: 'orange' },
+      { x: 6, y: 6, color: 'orange' },
+      { x: 1, y: 1, color: 'green' },
+      { x: 5, y: 4, color: 'green' },
+      { x: 1, y: 3, color: 'red' },
+      { x: 4, y: 2, color: 'red' }
+      
+    ],
+    isBoss: true
   }
   
 ];
