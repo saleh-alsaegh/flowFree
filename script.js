@@ -354,20 +354,60 @@ const handleMouseMove = (e) => {
     updateMovesDisplay();
   }
 };
+const getDotPairs=(level)=> {
+  const colorMap = {};
+  for (const dot of level.dots) {
+    if (!colorMap[dot.color]) colorMap[dot.color] = [];
+    colorMap[dot.color].push({ x: dot.x, y: dot.y });
+  }
+  return colorMap; // { red: [{x,y}, {x,y}], ... }
+}
+const isConnected=(start, end, color)=> {
+  const visited = new Set();
+  const queue = [start];
+  const key = (x, y) => `${x},${y}`;
+
+  while (queue.length > 0) {
+    const { x, y } = queue.shift();
+    if (x === end.x && y === end.y) return true;
+
+    [[0,1],[1,0],[0,-1],[-1,0]].forEach(([dx, dy]) => {
+      const nx = x + dx, ny = y + dy;
+      if (nx >= 0 && nx < boardSize && ny >= 0 && ny < boardSize) {
+        const neighbor = grid[ny][nx];
+        const k = key(nx, ny);
+        if (neighbor.color === color && !visited.has(k)) {
+          visited.add(k);
+          queue.push({ x: nx, y: ny });
+        }
+      }
+    });
+  }
+
+  return false;
+}
+
 
 const checkWin = () => {
   for (let y = 0; y < boardSize; y++) {
     for (let x = 0; x < boardSize; x++) {
-      if (!grid[y][x].color) {
-        return false;
-      }
+      if (!grid[y][x].color) return false;
     }
   }
+
+  const dotPairs = getDotPairs(levels[currentLevel]);
+
+  for (const color in dotPairs) {
+    const [start, end] = dotPairs[color];
+    if (!isConnected(start, end, color)) return false;
+  }
+
   clearInterval(gameState.timerInterval);
   const stars = calculateScore();
   celebrateWin(stars);
   return true;
 };
+
 
 const calculateScore = () => {
   let score = 10;
