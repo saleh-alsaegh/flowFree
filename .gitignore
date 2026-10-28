@@ -1,0 +1,14 @@
+# generated images
+out/
+
+# personal reference photos (never commit these)
+refs/
+
+# secrets
+.env
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/

@@ -1,0 +1,27 @@
+{
+  "likeness": "Use the attached reference photos for my exact facial likeness: full dark beard with defined goatee, short cropped black hair, thick eyebrows, broad build — do not slim my face. Keep my real face shape, jawline, nose, eyes and skin tone exactly as in the photos; the output must be recognisably me.",
+  "framing": "Square 1:1 profile picture. Head-and-shoulders portrait, face centred and filling roughly the upper two-thirds of the frame, looking at or just past the viewer with a calm, confident, slightly warm expression. Plain clothing with no logos or lettering.",
+  "rules": "One strong idea per image. No props, no collages, no code, no text, no letters, no numbers, no watermarks, no signatures, no speech bubbles, no borders, no split panels. No glasses. Do not change my ethnicity, age, weight, beard shape or hairstyle.",
+  "styles": [
+    {
+      "key": "comic",
+      "name": "Graphic novel / bande dessinée",
+      "prompt": "Render me as the lead character of a modern Franco-Belgian bande dessinée. Confident black ink linework with varied line weight: thick contour lines around the head and shoulders, finer lines for the beard texture and eyebrow hair. Flat cel colours with no gradients: warm tan skin, near-black beard and hair, one muted clothing colour. Shadows are a single darker flat tone with a visible halftone dot screen in the shadow areas only. Background is one flat colour block, slightly desaturated, with no scenery. The feel is a printed comic album page: crisp, graphic, deliberate, confident. Not a caricature, not superhero exaggeration, not a photograph with a filter."
+    },
+    {
+      "key": "charcoal",
+      "name": "Charcoal and sanguine life study",
+      "prompt": "Draw me as a traditional atelier life study in charcoal and sanguine (red-brown) chalk on warm toned grey-tan paper. Charcoal carries the dark masses: beard, hair, eyebrows, the deep shadow under the jaw. Sanguine warms the skin planes of the forehead, cheeks and nose. A few white chalk highlights on the brow, nose bridge and cheekbone. Visible paper tooth and grain throughout. The face is fully resolved and finished; the shoulders and clothing dissolve into loose, unfinished gestural strokes and bare paper at the edges, like a study stopped on purpose. Soft smudged blending in the mid-tones, sharp accents in the eyes. Background is only the bare toned paper. No colour beyond charcoal black, sanguine red-brown, white chalk and paper tone."
+    },
+    {
+      "key": "calligraphy",
+      "name": "Arabic calligraphy fusion",
+      "prompt": "Create a fine-art portrait where my likeness fuses with abstract Arabic calligraphy. The face is rendered realistically in deep black ink and soft wash. My beard, the shadow under the jaw and the edges of the hair do not end as hair: they dissolve outward into sweeping abstract strokes in the spirit of thuluth and diwani script, long curved tails, thick-to-thin reed-pen swells and pointed terminals, flowing down and to the sides as pure gesture. The strokes must be abstract letterforms only, with no legible words, names or phrases anywhere. Exactly one accent of burnished gold leaf, placed as a single stroke or diacritic-like mark near the beard; everything else is black ink, ink wash greys and off-white paper. The composition stays a clear head-and-shoulders portrait first and a calligraphic abstraction second. Elegant, quiet, museum-quality, no clutter."
+    },
+    {
+      "key": "manga",
+      "name": "Seinen manga / anime",
+      "prompt": "Illustrate me as a character in a grounded seinen manga, the mature realistic register used for adult drama series, drawn as a finished colour anime key visual. Clean confident linework with closed contours and no sketchy lines. Realistic adult proportions and my real face structure: broad face, strong jaw, full dark beard with defined goatee, thick eyebrows, short cropped hair. Two-tone cel shading with hard-edged shadow shapes and a single soft rim light from one side. Restrained natural palette, no neon. Expression calm and self-assured with a hint of a smile. Background is a simple flat or softly graded colour field with no scenery. Absolutely not chibi, not kawaii, no oversized eyes, no exaggerated hair spikes, no sparkles, no screentone text effects."
+    }
+  ]
+}

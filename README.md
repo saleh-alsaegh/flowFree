@@ -1,67 +1,83 @@
-# Flow Puzzle Game
+# Profile Picture Pipeline
 
-## Date: 4/24/2025 at 11:08:06
+A repeatable pipeline that turns a handful of reference photos into
+AI-generated artistic profile pictures with the Gemini API. One strong idea
+per image, square 1:1, head and shoulders, no props, no text.
 
-**By: Saleh Alsaegh**  
-[🌐 Website](https://bold.pro/my/saleh-alsaegh-resume/585r) | [💻 GitHub](https://github.com/saleh-alsaegh) | [🔗 LinkedIn](www.linkedin.com/in/saleh-m-alsaegh-77854780)
+Four styles are defined in `prompts.json`:
 
----
+| key           | style                                                  |
+|---------------|--------------------------------------------------------|
+| `comic`       | graphic novel / bande dessinée, flat cel colours, halftone shadows |
+| `charcoal`    | charcoal and sanguine chalk life study on toned paper, unfinished edges |
+| `calligraphy` | beard and shadows dissolving into abstract thuluth/diwani strokes, one gold accent |
+| `manga`       | seinen manga / anime key visual, clean linework, cel shading, no chibi |
 
-### 📄 **Description**
+Every style prompt is prefixed with the same likeness line so the model keeps
+the real face from the reference photos.
 
-**Flow Puzzle Game** is a browser-based logic puzzle where players connect matching colored dots on a grid without crossing paths. The goal is to fill the entire grid with colored lines.  
-Inspired by the popular mobile puzzle game **Flow Free**, this project was created as a fun and interactive JavaScript learning exercise to explore DOM manipulation, game logic, and visual feedback in web development.
+## Setup
 
-This project helps sharpen problem-solving skills and demonstrates how to build dynamic user interfaces using **vanilla JavaScript**. It can be used for educational purposes or enhanced further into a full-scale puzzle game.
+1. Python 3.10 or newer.
+2. Install dependencies:
 
----
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate        # Windows: .venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
 
-### 🛠️ **Technologies Used**
+3. Get a Gemini API key from Google AI Studio and make it available either as
+   an environment variable or in a `.env` file next to `generate.py`:
 
-- **HTML5**
-  - Grid structure
-  - Semantic layout
-- **CSS3**
-  - Flex and Grid layout systems
-  - Color-coding and animations
-- **JavaScript (Vanilla)**
-  - DOM manipulation
-  - Event handling
-  - Game state logic and user interaction
+   ```bash
+   export GEMINI_API_KEY="your-key"
+   # or
+   echo 'GEMINI_API_KEY=your-key' > .env
+   ```
 
----
+4. Put your reference photos in `./refs/` (`.jpg`, `.jpeg`, `.png`, `.webp`).
+   Use clear, well-lit shots of your face only; avoid photos where other
+   people's faces are visible or your face is cropped. 5 to 10 photos is
+   plenty. Photos are rotated and downscaled to 1536px before upload, the
+   originals are left untouched.
 
-### 🚀 **Getting Started**
+`out/`, `refs/` and `.env` are gitignored, so generated images, personal
+photos and the key never end up in the repository.
 
-This section outlines how the Flow Puzzle Game project was initiated and the key decisions made early on:
+## Run
 
-1. **Conceptualization & Wireframing**
+```bash
+python generate.py                      # all 4 styles, 4 variations each
+python generate.py --style comic        # one style
+python generate.py --style comic --style manga --count 2
+python generate.py --size 2K            # 1K (default), 2K or 4K
+python generate.py --dry-run            # check refs and print the prompts, no API calls
+```
 
-   - Sketched the layout and game interface using hand-drawn wireframes.
-   - Defined core gameplay mechanics (connecting color-matched dots without overlapping paths).
+Results land in `out/<style>/<timestamp>_v<n>.png`, with the exact prompt
+that produced them saved alongside as `<timestamp>_prompt.txt`.
 
-2. **Setting Up the Project**
+## Model
 
-   - Created basic file structure: `index.html`, `styles.css`, and `script.js`.
-   - Set up a 2D grid using HTML and styled it with CSS Grid for visual clarity.
+The default model is `gemini-3-pro-image` (Nano Banana Pro). Override it with
+`--model` or the `GEMINI_IMAGE_MODEL` environment variable, for example
+`gemini-nano-banana-2.1` for a cheaper and faster run. Check the Gemini API
+model list before switching, image model IDs rotate often.
 
-3. **Game Logic Design**
+## Tuning the prompts
 
-   - Planned the logic to:
-     - Handle user input (clicks on cells).
-     - Track and validate the current path.
-     - Ensure paths do not overlap.
-     - Check for level completion.
+Edit `prompts.json`:
 
-4. **Initial Coding**
+- `likeness` is the shared first line. Keep it concrete and physical.
+- `framing` and `rules` are appended to every style.
+- Each entry in `styles` has a `key` (used for the CLI flag and the output
+  folder), a `name`, and the `prompt` describing a single visual idea.
 
-   - Coded dynamic grid generation using JavaScript.
-   - Handled basic user interaction: selecting a dot, drawing paths, and completing connections.
+Add a new style by appending an object to `styles`; no code changes needed.
 
-5. **Interface Enhancements**
-   - Added color-coded paths, animations, and feedback when a level is completed.
-   - Implemented control buttons: **UNDO**, **RESET**, and **NEXT LEVEL**.
+## Cost note
 
-These early stages built the foundation of a playable and visually interactive puzzle game.
-
----
+Each variation is one image-generation request. The default run is 16
+requests (4 styles x 4 variations) at 1K, each sending all reference photos.
+Use `--dry-run` and `--count 1` while iterating on prompts.
